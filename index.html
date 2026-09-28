@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Countries & Flags</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #f5efe6;
+      --paper: rgba(255,255,255,0.6);
+      --ink: #1b1a18;
+      --muted: #6e685f;
+      --line: rgba(27,26,24,0.12);
+      --accent: #b44f2f;
+      --accent-2: #254441;
+      --shadow: 0 20px 60px rgba(38, 30, 18, 0.12);
+      --radius: 26px;
+      --max: 1180px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(180,79,47,0.11), transparent 0 26%),
+        radial-gradient(circle at 85% 15%, rgba(37,68,65,0.12), transparent 0 24%),
+        linear-gradient(180deg, #f7f1e8 0%, #f0e7da 100%);
+      font-family:"Space Grotesk", sans-serif;
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.35;
+      background-image:
+        linear-gradient(rgba(27,26,24,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(27,26,24,0.03) 1px, transparent 1px);
+      background-size: 34px 34px;
+      mask-image: radial-gradient(circle at center, black 40%, transparent 90%);
+    }
+
+    .site{
+      width:min(calc(100% - 2rem), var(--max));
+      margin-inline:auto;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:1.1rem 0;
+      position:sticky;
+      top:0;
+      z-index:20;
+      backdrop-filter: blur(14px);
+      background:linear-gradient(to bottom, rgba(245,239,230,.9), rgba(245,239,230,.45));
+      border-bottom:1px solid rgba(27,26,24,0.08);
+    }
+
+    .brand{
+      font-weight:700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      font-size:.92rem;
+      display:flex;
+      align-items:center;
+      gap:.7rem;
+    }
+
+    .brand-mark{
+      width:1.1rem;
+      height:1.1rem;
+      border-radius:50%;
+      background:
+        radial-gradient(circle at 32% 30%, #fff 0 18%, transparent 20%),
+        linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow:0 0 0 6px rgba(180,79,47,.08);
+    }
+
+    .nav-meta{
+      font-size:.88rem;
+      color:var(--muted);
+    }
+
+    header{
+      padding: clamp(2rem, 4vw, 4rem) 0 2rem;
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:clamp(1.5rem, 4vw, 4rem);
+      align-items:end;
+    }
+
+    .eyebrow{
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-size:.78rem;
+      color:var(--accent);
+      margin-bottom:1rem;
+      display:inline-block;
+    }
+
+    h1{
+      margin:0;
+      font-family:"Cormorant Garamond", serif;
+      font-size:clamp(3rem, 7vw, 6.6rem);
+      line-height:.92;
+      letter-spacing:-.03em;
+      max-width:10ch;
+    }
+
+    .hero-copy p{
+      margin:1.25rem 0 0;
+      color:var(--muted);
+      font-size:clamp(1rem, 1.35vw, 1.15rem);
+      line-height:1.8;
+      max-width:58ch;
+    }
+
+    .hero-panel{
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:1.2rem;
+      background:linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.42));
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+      min-height:300px;
+    }
+
+    .hero-panel::before{
+      content:"";
+      position:absolute;
+      inset:auto -10% -20% auto;
+      width:240px;
+      height:240px;
+      border-radius:40% 60% 55% 45%;
+      background: radial-gradient(circle at 35% 35%, rgba(180,79,47,.3), transparent 60%);
+      filter:blur(10px);
+    }
+
+    .stat-line{
+      display:flex;
+      justify-content:space-between;
+      gap:1rem;
+      padding:.7rem 0;
+      border-bottom:1px solid var(--line);
+      font-size:.95rem;
+    }
+
+    .stat-line:last-child{border-bottom:none}
+    .stat-line span:last-child{color:var(--muted)}
+
+    main{
+      padding:1rem 0 4rem;
+    }
+
+    .controls{
+      display:grid;
+      grid-template-columns: 1fr auto;
+      gap:1rem;
+      align-items:center;
+      margin: 1rem 0 2rem;
+    }
+
+    .search-wrap{
+      position:relative;
+    }
+
+    .search-wrap input{
+      width:100%;
+      padding:1rem 1rem 1rem 3rem;
+      border-radius:999px;
+      border:1px solid rgba(27,26,24,.12);
+      background:rgba(255,255,255,.65);
+      backdrop-filter: blur(14px);
+      font:inherit;
+      color:var(--ink);
+      outline:none;
+      transition:.25s ease;
+      box-shadow:0 10px 40px rgba(38,30,18,.05);
+    }
+
+    .search-wrap input:focus{
+      border-color:rgba(180,79,47,.55);
+      box-shadow:0 0 0 6px rgba(180,79,47,.08);
+    }
+
+    .search-icon{
+      position:absolute;
+      left:1rem;
+      top:50%;
+      transform:translateY(-50%);
+      color:var(--muted);
+      font-size:1rem;
+    }
+
+    .filter-note{
+      color:var(--muted);
+      font-size:.92rem;
+      white-space:nowrap;
+    }
+
+    .countries{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(0,1fr));
+      gap:.85rem;
+    }
+
+    .country{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      padding:1rem 1.05rem;
+      border-radius:18px;
+      background:linear-gradient(180deg, rgba(255,255,255,.78), rgba(255,255,255,.45));
+      border:1px solid rgba(27,26,24,.08);
+      backdrop-filter: blur(12px);
+      box-shadow:0 12px 30px rgba(38,30,18,.06);
+      transform:translateY(18px);
+      opacity:0;
+      animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards;
+      transition:transform .24s ease, border-color .24s ease, box-shadow .24s ease, background .24s ease;
+    }
+
+    .country:hover{
+      transform:translateY(-4px);
+      border-color:rgba(180,79,47,.32);
+      box-shadow:0 18px 36px rgba(38,30,18,.1);
+      background:linear-gradient(180deg, rgba(255,255,255,.88), rgba(255,255,255,.58));
+    }
+
+    .country-name{
+      font-size:.98rem;
+      font-weight:500;
+      line-height:1.25;
+    }
+
+    .flag{
+      font-size:1.8rem;
+      flex-shrink:0;
+      filter:saturate(1.05);
+    }
+
+    .empty{
+      display:none;
+      border:1px dashed rgba(27,26,24,.18);
+      border-radius:24px;
+      padding:2rem;
+      text-align:center;
+      color:var(--muted);
+      background:rgba(255,255,255,.35);
+    }
+
+    footer{
+      padding:2rem 0 3rem;
+      color:var(--muted);
+      font-size:.9rem;
+      display:flex;
+      justify-content:space-between;
+      gap:1rem;
+      border-top:1px solid rgba(27,26,24,.08);
+      margin-top:3rem;
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(24px);
+      transition:opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @keyframes rise{
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    @media (max-width: 980px){
+      .hero{grid-template-columns:1fr}
+      .countries{grid-template-columns: repeat(3, minmax(0,1fr));}
+    }
+
+    @media (max-width: 700px){
+      nav{padding:1rem 0}
+      .controls{grid-template-columns:1fr}
+      .filter-note{white-space:normal}
+      .countries{grid-template-columns: repeat(2, minmax(0,1fr));}
+      footer{flex-direction:column}
+    }
+
+    @media (max-width: 460px){
+      .countries{grid-template-columns:1fr}
+      .country{padding:.95rem 1rem}
+      .hero-panel{min-height:auto}
+    }
+  </style>
+</head>
+<body>
+  <div class="site">
+    <nav aria-label="Primary">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Country Flags API</span>
+      </div>
+      <div class="nav-meta">index.html fetching <strong>api/countries.json</strong></div>
+    </nav>
+
+    <header class="reveal">
+      <div class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow">Simple JSON integration</span>
+          <h1>Browse countries with their flags.</h1>
+          <p>
+            This page loads data directly from <strong>api/countries.json</strong>, renders the list dynamically,
+            and includes a live search filter so you can quickly find any country in the dataset.
+          </p>
+        </div>
+
+        <aside class="hero-panel reveal" aria-label="Dataset summary">
+          <div class="stat-line"><span>Source</span><span>Local JSON endpoint</span></div>
+          <div class="stat-line"><span>Expected file</span><span>api/countries.json</span></div>
+          <div class="stat-line"><span>Format</span><span>Array of country objects</span></div>
+          <div class="stat-line"><span>Required fields</span><span>country, flag</span></div>
+          <div class="stat-line"><span>Rendering</span><span>Fetch API + DOM</span></div>
+        </aside>
+      </div>
+    </header>
+
+    <main>
+      <section class="reveal" aria-labelledby="countries-title">
+        <div class="controls">
+          <div class="search-wrap">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <input
+              id="search"
+              type="search"
+              placeholder="Search for a country..."
+              aria-label="Search countries"
+            />
+          </div>
+          <div class="filter-note">
+            <span id="count">Loading countries...</span>
+          </div>
+        </div>
+
+        <div id="empty" class="empty" role="status" aria-live="polite">
+          No matching countries found.
+        </div>
+
+        <div id="countries" class="countries" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Save your data file as <strong>api/countries.json</strong>.</span>
+      <span>Each item should look like: <strong>{ "country": "United States", "flag": "🇺🇸" }</strong></span>
+    </footer>
+  </div>
+
+  <script>
+    const countriesContainer = document.getElementById('countries');
+    const searchInput = document.getElementById('search');
+    const countEl = document.getElementById('count');
+    const emptyEl = document.getElementById('empty');
+
+    let countriesData = [];
+
+    function renderCountries(list) {
+      countriesContainer.innerHTML = '';
+
+      if (!list.length) {
+        emptyEl.style.display = 'block';
+        countEl.textContent = '0 countries shown';
+        return;
+      }
+
+      emptyEl.style.display = 'none';
+      countEl.textContent = `${list.length} ${list.length === 1 ? 'country' : 'countries'} shown`;
+
+      list.forEach((item, index) => {
+        const article = document.createElement('article');
+        article.className = 'country';
+        article.style.animationDelay = `${index * 35}ms`;
+        article.innerHTML = `
+          <span class="country-name">${item.country}</span>
+          <span class="flag" aria-label="${item.country} flag">${item.flag}</span>
+        `;
+        countriesContainer.appendChild(article);
+      });
+    }
+
+    function filterCountries() {
+      const term = searchInput.value.trim().toLowerCase();
+      const filtered = countriesData.filter(item =>
+        item.country.toLowerCase().includes(term)
+      );
+      renderCountries(filtered);
+    }
+
+    async function loadCountries() {
+      try {
+        const response = await fetch('api/countries.json');
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (!Array.isArray(data)) {
+          throw new Error('Invalid JSON format. Expected an array.');
+        }
+
+        countriesData = data;
+        renderCountries(countriesData);
+      } catch (error) {
+        countriesContainer.innerHTML = '';
+        emptyEl.style.display = 'block';
+        emptyEl.textContent = 'Failed to load api/countries.json. Check the file path and JSON format.';
+        countEl.textContent = 'Load error';
+        console.error('Error loading countries:', error);
+      }
+    }
+
+    searchInput.addEventListener('input', filterCountries);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    loadCountries();
+  </script>
+</body>
+</html>
